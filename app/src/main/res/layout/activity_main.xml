@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/LightGrey"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/album"
+        android:layout_marginTop="60dp"
+        />
+
+    <android.support.v7.widget.AppCompatSeekBar
+        android:id="@+id/positionBar"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        />
+
+    <!-- Song times -->
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/lblElapsedTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00"
+            android:layout_marginLeft="40dp" />
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/lblRemainingTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00"
+            android:layout_marginLeft="240dp" />
+    </android.support.v7.widget.LinearLayoutCompat>
+
+    <Button
+        android:id="@+id/btnPlay"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/play"
+        android:layout_marginTop="40dp"
+        android:onClick="btnPlayClick"/>
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="40dp"
+        android:gravity="center">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/sounddown"/>
+        <android.support.v7.widget.AppCompatSeekBar
+            android:id="@+id/volumeBar"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:progress="50"
+            android:max="100"/>
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:src="@drawable/soundup"/>
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+
+</LinearLayout>
