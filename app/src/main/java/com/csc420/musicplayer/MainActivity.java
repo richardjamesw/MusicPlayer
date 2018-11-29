@@ -5,6 +5,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
@@ -15,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     // private instances
     Button btnPlay;
     SeekBar positionBar;
-    SeekBar volumeBar;
+    //SeekBar volumeBar;
     TextView lblElapsedTime;
     TextView lblRemainingTime;
     MediaPlayer player;
@@ -64,27 +67,27 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
-        // volume bar
-        volumeBar = findViewById(R.id.volumeBar);
-        volumeBar.setOnSeekBarChangeListener(
-                new SeekBar.OnSeekBarChangeListener() {
-                    @Override
-                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                        float volNum = progress / 100f;
-                        player.setVolume(volNum, volNum);
-                    }
-
-                    @Override
-                    public void onStartTrackingTouch(SeekBar seekBar) {
-
-                    }
-
-                    @Override
-                    public void onStopTrackingTouch(SeekBar seekBar) {
-
-                    }
-                }
-        );
+//        // volume bar
+//        volumeBar = findViewById(R.id.volumeBar);
+//        volumeBar.setOnSeekBarChangeListener(
+//                new SeekBar.OnSeekBarChangeListener() {
+//                    @Override
+//                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+//                        float volNum = progress / 100f;
+//                        player.setVolume(volNum, volNum);
+//                    }
+//
+//                    @Override
+//                    public void onStartTrackingTouch(SeekBar seekBar) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onStopTrackingTouch(SeekBar seekBar) {
+//
+//                    }
+//                }
+//        );
 
         // Thread to update position bar and time label
         new Thread(new Runnable() {
@@ -151,5 +154,27 @@ public class MainActivity extends AppCompatActivity {
             player.pause();
             btnPlay.setBackgroundResource(R.drawable.play);
         }
+    }
+
+    // setup custom action bar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    // when we click the search button
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        int id = item.getItemId();
+
+        if (id == R.id.action_settings)
+        {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
