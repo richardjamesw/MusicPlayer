@@ -9,9 +9,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     //SeekBar volumeBar;
     TextView lblElapsedTime;
     TextView lblRemainingTime;
+    ListView lvMainWindowList;
     MediaPlayer player;
     int totalTime;
 
@@ -30,9 +36,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        lvMainWindowList = findViewById(R.id.lvMainWindowList);
         btnPlay = findViewById(R.id.btnPlay);
         lblElapsedTime = findViewById(R.id.lblElapsedTime);
         lblRemainingTime = findViewById(R.id.lblRemainingTime);
+
+        // Main Window list (Songs, Artists, etc..)
+        // Create The Adapter with passing ArrayList as 3rd parameter
+        ArrayAdapter<String> arrayAdapter =
+                new ArrayAdapter<>(this,R.layout.main_window_list_layout, Constants.MainWindowList);
+        // Set The Adapter
+        lvMainWindowList.setAdapter(arrayAdapter);
 
         // media player
         player = MediaPlayer.create(this, R.raw.sample);

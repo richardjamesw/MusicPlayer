@@ -12,11 +12,27 @@
 
     <!-- Main list -->
     <ListView
+        android:id="@+id/lvMainWindowList"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_weight="1">
 
     </ListView>
+
+    <!-- Just a separator bar -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <!-- Song info -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="Song Name"/>
+
     <!-- Seek Bar -->
     <SeekBar
         android:id="@+id/positionBar"
@@ -47,9 +63,11 @@
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:columnCount="6"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="0">
 
         <Button
             android:id="@+id/btnRepeat"
@@ -104,14 +122,22 @@
 
     </GridLayout>
 
+    <!-- Just a separator bar -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
     <!-- Bottom Menu buttons -->
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:columnCount="3"
-        android:layout_marginTop="20dp">
+        android:columnCount="5"
+        android:layout_weight="0"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
 
         <Button
             android:id="@+id/btnSuggested"
@@ -121,6 +147,13 @@
             android:layout_columnWeight="1"
             android:layout_gravity="center_horizontal"/>
 
+        <!-- Vertical separator bar -->
+        <View
+            android:layout_width="1dp"
+            android:layout_height="50dp"
+            android:layout_columnWeight="0"
+            android:background="@android:color/darker_gray"/>
+
         <Button
             android:id="@+id/btnService"
             android:visibility="visible"
@@ -129,6 +162,13 @@
             android:background="@drawable/local_logo"
             android:layout_columnWeight="1"
             android:layout_gravity="center_horizontal"/>
+
+        <!-- Vertical separator bar -->
+        <View
+            android:layout_width="1dp"
+            android:layout_height="50dp"
+            android:layout_columnWeight="0"
+            android:background="@android:color/darker_gray"/>
 
         <Button
             android:id="@+id/btnLyrics"
