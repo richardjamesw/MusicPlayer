@@ -7,5 +7,4 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:textSize="35dp"
-    android:textStyle="bold"
-    android:textColor="@color/Black"/>
+    android:textColor="@color/White"/>
