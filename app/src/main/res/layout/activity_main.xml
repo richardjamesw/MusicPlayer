@@ -165,7 +165,6 @@
             android:layout_height="50dp"
             android:layout_columnWeight="1"
             android:layout_gravity="center_horizontal"
-            android:onClick="btnServiceClick"
             android:background="@drawable/local_logo"
             android:visibility="visible" />
 

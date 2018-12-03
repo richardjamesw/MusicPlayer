@@ -161,7 +161,16 @@ public class MainActivity extends AppCompatActivity {
         btnService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(MainActivity.this, ServiceActivity.class), 1);
+                // Change back to main menu if we're not showing it
+                if (lvMainWindowList.getAdapter() != mainAdapter)
+                {
+                    SetMainWindowList();
+                }
+                else
+                {
+                    // otherwise show the change service popup
+                    startActivityForResult(new Intent(MainActivity.this, ServiceActivity.class), 1);
+                }
             }
         });
 
@@ -229,20 +238,6 @@ public class MainActivity extends AppCompatActivity {
         timeLabel += sec;
 
         return timeLabel;
-    }
-
-    //Service Button
-    public void btnServiceClick(View view)
-    {
-        // Change back to main menu if we're not showing it
-        if (lvMainWindowList.getAdapter() != mainAdapter)
-        {
-            SetMainWindowList();
-        }
-        else
-        {
-            // otherwise show the change service popup
-        }
     }
 
     // Play
