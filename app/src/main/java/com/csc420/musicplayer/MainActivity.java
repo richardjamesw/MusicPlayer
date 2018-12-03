@@ -2,11 +2,13 @@ package com.csc420.musicplayer;
 
 import android.content.Context;
 import android.media.MediaMetadataRetriever;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
     // private instances
     Button btnPlay;
+    Button btnService;
+    Button btnLyrics;
     SeekBar positionBar;
     //SeekBar volumeBar;
     TextView lblElapsedTime;
@@ -151,6 +155,41 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }).start();
+
+        btnService = (Button) findViewById(R.id.btnService);
+        btnService.setBackgroundResource(Constants.serviceLogos[0]);
+        btnService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(MainActivity.this, ServiceActivity.class), 1);
+            }
+        });
+
+        btnLyrics = findViewById(R.id.btnLyrics);
+        btnLyrics.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, LyricsActivity.class));
+            }
+        });
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1){
+            if(resultCode == RESULT_OK){
+                int serviceID = data.getIntExtra("ServiceID", 0);
+                //switch to pandora activity
+                if(serviceID == 1){
+                    startActivityForResult(new Intent(MainActivity.this, PandoraActivity.class), 1);
+                }else {
+                    btnService.setBackgroundResource(Constants.serviceLogos[serviceID]);
+                }
+            }
+        }
     }
 
     private void SetMainWindowList() {

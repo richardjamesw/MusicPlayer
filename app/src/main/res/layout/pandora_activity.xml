@@ -75,20 +75,12 @@
         android:gravity="center">
 
         <Button
-            android:id="@+id/btnRepeat"
+            android:id="@+id/btnDislike"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_columnWeight="1"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/repeat" />
-
-        <Button
-            android:id="@+id/btnPrev"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_columnWeight="1"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/prev_track" />
+            android:background="@drawable/thumbs_down" />
 
         <Button
             android:id="@+id/btnPlay"
@@ -110,20 +102,12 @@
             android:visibility="gone" />
 
         <Button
-            android:id="@+id/btnNext"
+            android:id="@+id/btnLike"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_columnWeight="1"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/next_track" />
-
-        <Button
-            android:id="@+id/btnShuffle"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_columnWeight="1"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/shuffle" />
+            android:background="@drawable/thumbs_up" />
 
     </GridLayout>
 
@@ -165,10 +149,8 @@
             android:layout_height="50dp"
             android:layout_columnWeight="1"
             android:layout_gravity="center_horizontal"
-            android:onClick="btnServiceClick"
             android:background="@drawable/local_logo"
             android:visibility="visible" />
-
 
         <!-- Vertical separator bar -->
         <View
