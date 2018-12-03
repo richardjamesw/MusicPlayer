@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+
+    <!-- Main list -->
+    <ListView
+        android:id="@+id/lvMainWindowList"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+    </ListView>
+
+    <!-- Just a separator bar -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/white" />
+
+    <!-- Song info -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="Song Name"
+        android:textColor="@color/White" />
+
+    <!-- Seek Bar -->
+    <SeekBar
+        android:id="@+id/positionBar"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:progressBackgroundTint="@color/White" />
+
+    <!-- Song times -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/lblElapsedTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:text="00:00"
+            android:textColor="@color/White" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/lblRemainingTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="240dp"
+            android:text="00:00"
+            android:textColor="@color/White" />
+    </LinearLayout>
+
+
+    <!-- Play/Pause buttons etc -->
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="0"
+        android:columnCount="6"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btnDislike"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/thumbs_down" />
+
+        <Button
+            android:id="@+id/btnPlay"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/play"
+            android:onClick="btnPlayClick"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/btnPause"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/pause"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnLike"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/thumbs_up" />
+
+    </GridLayout>
+
+    <!-- Just a separator bar -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/white" />
+
+    <!-- Bottom Menu buttons -->
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="0"
+        android:columnCount="5"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnSuggested"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/suggested_songs" />
+
+        <!-- Vertical separator bar -->
+        <View
+            android:layout_width="1dp"
+            android:layout_height="50dp"
+            android:layout_columnWeight="0"
+            android:background="@android:color/white" />
+
+        <Button
+            android:id="@+id/btnService"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/local_logo"
+            android:visibility="visible" />
+
+        <!-- Vertical separator bar -->
+        <View
+            android:layout_width="1dp"
+            android:layout_height="50dp"
+            android:layout_columnWeight="0"
+            android:background="@android:color/white" />
+
+        <Button
+            android:id="@+id/btnLyrics"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/lyrics" />
+
+    </GridLayout>
+
+
+</LinearLayout>

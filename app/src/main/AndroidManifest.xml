@@ -20,6 +20,8 @@
         <activity android:name=".ServiceActivity"
             android:theme="@style/AppTheme.PopUpTheme"
             ></activity>
+        <activity android:name=".PandoraActivity"></activity>
+        <activity android:name=".LyricsActivity" android:theme="@style/AppTheme.PopUpTheme"></activity>
     </application>
 
 </manifest>

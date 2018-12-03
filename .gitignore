@@ -65,3 +65,6 @@ fastlane/test_output
 fastlane/readme.md
 app/src/main/.DS_Store
 .idea/encodings.xml
+app/src/main/java/.DS_Store
+app/src/main/res/.DS_Store
+app/src/main/res/layout/.DS_Store

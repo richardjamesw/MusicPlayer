@@ -1,56 +1,42 @@
 package com.csc420.musicplayer;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+public class PandoraActivity extends Activity {
 
-public class MainActivity extends AppCompatActivity {
-
-    // private instances
     Button btnPlay;
     Button btnService;
     Button btnLyrics;
     SeekBar positionBar;
-    //SeekBar volumeBar;
     TextView lblElapsedTime;
     TextView lblRemainingTime;
     ListView lvMainWindowList;
     MediaPlayer player;
     int totalTime;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.pandora_activity);
+
 
         lvMainWindowList = findViewById(R.id.lvMainWindowList);
         btnPlay = findViewById(R.id.btnPlay);
         lblElapsedTime = findViewById(R.id.lblElapsedTime);
         lblRemainingTime = findViewById(R.id.lblRemainingTime);
-
-        // Main Window list (Songs, Artists, etc..)
-        // Create The Adapter with passing ArrayList as 3rd parameter
-        ArrayAdapter<String> arrayAdapter =
-                new ArrayAdapter<>(this,R.layout.main_window_list_layout, Constants.MainWindowList);
-        // Set The Adapter
-        lvMainWindowList.setAdapter(arrayAdapter);
 
         // media player
         player = MediaPlayer.create(this, R.raw.sample);
@@ -85,29 +71,6 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
-//        // volume bar
-//        volumeBar = findViewById(R.id.volumeBar);
-//        volumeBar.setOnSeekBarChangeListener(
-//                new SeekBar.OnSeekBarChangeListener() {
-//                    @Override
-//                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-//                        float volNum = progress / 100f;
-//                        player.setVolume(volNum, volNum);
-//                    }
-//
-//                    @Override
-//                    public void onStartTrackingTouch(SeekBar seekBar) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onStopTrackingTouch(SeekBar seekBar) {
-//
-//                    }
-//                }
-//        );
-
-        // Thread to update position bar and time label
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -127,11 +90,11 @@ public class MainActivity extends AppCompatActivity {
         }).start();
 
         btnService = (Button) findViewById(R.id.btnService);
-        btnService.setBackgroundResource(Constants.serviceLogos[0]);
+        btnService.setBackgroundResource(Constants.serviceLogos[1]);
         btnService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(MainActivity.this, ServiceActivity.class), 1);
+                startActivityForResult(new Intent(PandoraActivity.this, ServiceActivity.class), 1);
             }
         });
 
@@ -139,10 +102,9 @@ public class MainActivity extends AppCompatActivity {
         btnLyrics.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, LyricsActivity.class));
+                startActivity(new Intent(PandoraActivity.this, LyricsActivity.class));
             }
         });
-
 
     }
 
@@ -152,12 +114,13 @@ public class MainActivity extends AppCompatActivity {
         if(requestCode == 1){
             if(resultCode == RESULT_OK){
                 int serviceID = data.getIntExtra("ServiceID", 0);
-                //switch to pandora activity
-                if(serviceID == 1){
-                    startActivityForResult(new Intent(MainActivity.this, PandoraActivity.class), 1);
-                }else {
-                    btnService.setBackgroundResource(Constants.serviceLogos[serviceID]);
+                if(serviceID != 1){
+                    Intent intent = new Intent();
+                    intent.putExtra("ServiceID", serviceID);
+                    setResult(RESULT_OK, intent);
+                    finish();
                 }
+                //btnService.setBackgroundResource(Constants.serviceLogos[serviceID]);
             }
         }
     }
