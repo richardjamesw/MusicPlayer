@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -157,7 +158,6 @@ public class MainActivity extends AppCompatActivity {
         }).start();
 
         btnService = (Button) findViewById(R.id.btnService);
-        btnService.setBackgroundResource(Constants.serviceLogos[0]);
         btnService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -408,6 +408,8 @@ public class MainActivity extends AppCompatActivity {
                     case "Playlists" :
                         break;
                     case "Genres" :
+                        ServiceAdapter sa = new ServiceAdapter(MainActivity.this, Constants.Genres, Constants.genreLogos);
+                        lvMainWindowList.setAdapter(sa);
                         break;
                 }
             }

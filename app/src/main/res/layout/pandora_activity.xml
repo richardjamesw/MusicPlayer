@@ -102,6 +102,12 @@
             android:visibility="gone" />
 
         <Button
+            android:id="@+id/btnSkip"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/next_track" />
+
+        <Button
             android:id="@+id/btnLike"
             android:layout_width="40dp"
             android:layout_height="40dp"
