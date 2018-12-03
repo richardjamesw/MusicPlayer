@@ -7,4 +7,11 @@ public final class Constants {
             {
                     "Songs", "Artists", "Albums", "Playlists", "Genres"
             };
+
+    //list of Services
+    public static final String[] listOfServices = {
+            "Spotify", "Pandora", "Apple Music"
+    };
+
+    public static final int[] serviceLogos = {R.drawable.spotify_logo, R.drawable.pandora_logo, R.drawable.apple_music_logo};
 }

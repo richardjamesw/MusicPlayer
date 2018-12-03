@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    android:orientation="vertical"
     android:gravity="center_horizontal"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
 
@@ -15,8 +15,8 @@
         android:id="@+id/lvMainWindowList"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:orientation="vertical"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="vertical">
 
     </ListView>
 
@@ -24,42 +24,43 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/white"/>
+        android:background="@android:color/white" />
 
     <!-- Song info -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:gravity="center"
-        android:textColor="@color/White"
-        android:text="Song Name"/>
+        android:text="Song Name"
+        android:textColor="@color/White" />
 
     <!-- Seek Bar -->
     <SeekBar
         android:id="@+id/positionBar"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:progressBackgroundTint="@color/White"
-        />
+        android:progressBackgroundTint="@color/White" />
 
     <!-- Song times -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/lblElapsedTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/White"
+            android:layout_marginLeft="40dp"
             android:text="00:00"
-            android:layout_marginLeft="40dp" />
+            android:textColor="@color/White" />
+
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/lblRemainingTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/White"
+            android:layout_marginLeft="240dp"
             android:text="00:00"
-            android:layout_marginLeft="240dp" />
+            android:textColor="@color/White" />
     </LinearLayout>
 
 
@@ -67,11 +68,11 @@
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:columnCount="6"
-        android:gravity="center"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
-        android:layout_weight="0">
+        android:layout_weight="0"
+        android:columnCount="6"
+        android:gravity="center">
 
         <Button
             android:id="@+id/btnRepeat"
@@ -79,7 +80,7 @@
             android:layout_height="40dp"
             android:layout_columnWeight="1"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/repeat"/>
+            android:background="@drawable/repeat" />
 
         <Button
             android:id="@+id/btnPrev"
@@ -87,26 +88,26 @@
             android:layout_height="40dp"
             android:layout_columnWeight="1"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/prev_track"/>
+            android:background="@drawable/prev_track" />
 
         <Button
             android:id="@+id/btnPlay"
-            android:visibility="visible"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_columnWeight="1"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/play"
-            android:onClick="btnPlayClick" />
+            android:onClick="btnPlayClick"
+            android:visibility="visible" />
 
         <Button
             android:id="@+id/btnPause"
-            android:visibility="gone"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_columnWeight="1"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/pause" />
+            android:background="@drawable/pause"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/btnNext"
@@ -122,7 +123,7 @@
             android:layout_height="40dp"
             android:layout_columnWeight="1"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/shuffle"/>
+            android:background="@drawable/shuffle" />
 
     </GridLayout>
 
@@ -130,57 +131,57 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/white"/>
+        android:background="@android:color/white" />
 
     <!-- Bottom Menu buttons -->
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:columnCount="5"
-        android:layout_weight="0"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
+        android:layout_marginBottom="10dp"
+        android:layout_weight="0"
+        android:columnCount="5"
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnSuggested"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/suggested_songs"
             android:layout_columnWeight="1"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/suggested_songs" />
 
         <!-- Vertical separator bar -->
         <View
             android:layout_width="1dp"
             android:layout_height="50dp"
             android:layout_columnWeight="0"
-            android:background="@android:color/white"/>
+            android:background="@android:color/white" />
 
         <Button
             android:id="@+id/btnService"
-            android:visibility="visible"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/local_logo"
             android:layout_columnWeight="1"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/local_logo"
+            android:visibility="visible" />
 
         <!-- Vertical separator bar -->
         <View
             android:layout_width="1dp"
             android:layout_height="50dp"
             android:layout_columnWeight="0"
-            android:background="@android:color/white"/>
+            android:background="@android:color/white" />
 
         <Button
             android:id="@+id/btnLyrics"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/lyrics"
             android:layout_columnWeight="1"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/lyrics" />
 
     </GridLayout>
 
