@@ -1,22 +1,36 @@
 package com.csc420.musicplayer;
 
+import android.content.Context;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SeekBar;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import java.io.File;
+import java.lang.reflect.Field;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,6 +43,14 @@ public class MainActivity extends AppCompatActivity {
     ListView lvMainWindowList;
     MediaPlayer player;
     int totalTime;
+    List<Playlist> playlists;
+    List<Song> songList;
+    // This activity reference
+    Context mainContext = this;
+    ArrayAdapter<String> mainAdapter;
+    // listeners
+    android.widget.AdapterView.OnItemClickListener songListener;
+    android.widget.AdapterView.OnItemClickListener mainListener;
 
 
     @Override
@@ -36,20 +58,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Load songs from disk
+        LoadSongs();
+        // Load Playlists from disk
+        // LoadPlaylists();
+        // Setup listeners
+        InitListeners();
+
         lvMainWindowList = findViewById(R.id.lvMainWindowList);
         btnPlay = findViewById(R.id.btnPlay);
         lblElapsedTime = findViewById(R.id.lblElapsedTime);
         lblRemainingTime = findViewById(R.id.lblRemainingTime);
 
-        // Main Window list (Songs, Artists, etc..)
-        // Create The Adapter with passing ArrayList as 3rd parameter
-        ArrayAdapter<String> arrayAdapter =
-                new ArrayAdapter<>(this,R.layout.main_window_list_layout, Constants.MainWindowList);
-        // Set The Adapter
-        lvMainWindowList.setAdapter(arrayAdapter);
-
         // media player
-        player = MediaPlayer.create(this, R.raw.sample);
+        player = MediaPlayer.create(mainContext, R.raw.sample);
         player.setLooping(true);
         player.seekTo(0);
         player.setVolume(0.5f, 0.5f);
@@ -103,6 +125,11 @@ public class MainActivity extends AppCompatActivity {
 //                }
 //        );
 
+        // Now start listening for main window list selections
+        mainAdapter =
+                new ArrayAdapter<>(mainContext,R.layout.main_window_list_layout, Constants.MainWindowList);
+        SetMainWindowList();
+
         // Thread to update position bar and time label
         new Thread(new Runnable() {
             @Override
@@ -117,10 +144,23 @@ public class MainActivity extends AppCompatActivity {
 
                         Thread.sleep(1000);
                     }
-                    catch (InterruptedException exc) {}
+                    catch (InterruptedException exc)
+                    {
+                        System.out.println("ERROR: " + exc.getMessage());
+                    }
                 }
             }
         }).start();
+    }
+
+    private void SetMainWindowList() {
+        // Set The Adapter and listener for main view
+        if (mainAdapter != null
+                && mainListener != null)
+        {
+            lvMainWindowList.setAdapter(mainAdapter);
+            lvMainWindowList.setOnItemClickListener(mainListener);
+        }
     }
 
     // handler for positioning
@@ -152,6 +192,20 @@ public class MainActivity extends AppCompatActivity {
         return timeLabel;
     }
 
+    //Service Button
+    public void btnServiceClick(View view)
+    {
+        // Change back to main menu if we're not showing it
+        if (lvMainWindowList.getAdapter() != mainAdapter)
+        {
+            SetMainWindowList();
+        }
+        else
+        {
+            // otherwise show the change service popup
+        }
+    }
+
     // Play
     public void btnPlayClick(View view)
     {
@@ -168,6 +222,64 @@ public class MainActivity extends AppCompatActivity {
             player.pause();
             btnPlay.setBackgroundResource(R.drawable.play);
         }
+    }
+
+    // load songs from disk
+    private void LoadSongs()
+    {
+        if (songList == null)
+        {
+            songList = new ArrayList<>();
+        }
+        // used to parse song file
+        MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+
+        try
+        {
+//            // Get all the song files and extract their data from raw resources
+//            Field[] fields = R.raw.class.getFields();
+//            // get out if theres no songs
+//            if (fields == null || fields.length < 1) return;
+//
+//            // iterate through songs
+//            for(int count=0; count < fields.length; count++){
+//                int resourceID = fields[count].getInt(fields[count]);
+//                Uri mediaPath = Uri.parse("android.resource://" + getPackageName() + "/raw/" + resourceID);
+//                mmr.setDataSource(mainContext, mediaPath);
+//
+//                // get song info from meta data
+//                String songTitle = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
+//                String artist = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
+//                String album = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM);
+//                String genre = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_GENRE);
+//
+//                // add to list of all songs
+//                songList.add(new Song(songTitle, artist, album, genre, resourceID));
+//            }
+
+            // test data
+            songList.add(new Song("Sicko Mode", "Travi$ Scott", "ASTROWORLD", "Rap", 001));
+            songList.add(new Song("Mo Bamba", "Sheck Wes", "Mudboy", "Rap", 002));
+
+        } catch (Exception e)
+        {
+            System.out.println("ERROR: " + e.getMessage());
+        }
+    }
+
+    // Get hashmap of local songs
+    private HashMap<String, String> getSongMap() {
+        if (songList == null)
+            return null;
+
+        HashMap<String, String> songs = new HashMap<>();
+        // convert songs to map of title and artist
+        for (Song s : songList)
+        {
+            songs.put(s.getTitle(), s.getArtist());
+        }
+
+        return songs;
     }
 
     // setup custom action bar
@@ -190,5 +302,81 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    // Initialize listeners
+    private void InitListeners()
+    {
+        // listener for songs menu
+        songListener = new android.widget.AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> adapter, View v, int position,
+                                    long arg3) {
+
+                try
+                {
+                    HashMap<String, String> item = (HashMap<String, String>) adapter.getItemAtPosition(position);
+
+                    // play song
+                    System.out.println("test: ");
+                }
+                catch (Exception exc)
+                {
+                    System.out.println("Error: " + exc.getMessage());
+                }
+
+            }
+        };
+
+        // Listener for main window items
+        mainListener = new android.widget.AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View v, int position,
+                                    long arg3) {
+                String item = (String) adapter.getItemAtPosition(position);
+
+                // Check which item was selected and do something
+                switch (item)
+                {
+                    case "Songs" :
+                        // Get local songs
+                        // Use map for song name and artist name
+                        HashMap<String, String> songsMap = getSongMap();
+                        if (songsMap == null)
+                        {
+                            // let user know there are no songs available
+                            return;
+                        }
+                        List<HashMap<String, String>> listItems = new ArrayList<>();
+                        SimpleAdapter listAdapter = new SimpleAdapter(mainContext, listItems, R.layout.song_list_layout,
+                                new String[]{"First Line", "Second Line"},
+                                new int[]{R.id.textSong, R.id.textArtist});
+
+
+                        Iterator it = songsMap.entrySet().iterator();
+                        while (it.hasNext())
+                        {
+                            HashMap<String, String> resultsMap = new HashMap<>();
+                            Map.Entry pair = (Map.Entry)it.next();
+                            resultsMap.put("First Line", pair.getKey().toString());
+                            resultsMap.put("Second Line", pair.getValue().toString());
+                            listItems.add(resultsMap);
+                        }
+                        // Update list view
+                        lvMainWindowList.setAdapter(listAdapter);
+                        // Change listener for songs
+                        lvMainWindowList.setOnItemClickListener(songListener);
+
+                        break;
+                    case "Artists" :
+                        break;
+                    case "Albums" :
+                        break;
+                    case "Playlists" :
+                        break;
+                    case "Genres" :
+                        break;
+                }
+            }
+        };
     }
 }
