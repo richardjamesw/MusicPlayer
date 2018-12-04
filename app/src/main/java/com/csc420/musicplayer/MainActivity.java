@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -388,6 +389,8 @@ public class MainActivity extends AppCompatActivity {
                     case "Albums" :
                         break;
                     case "Playlists" :
+                        PlaylistsAdapter pa = new PlaylistsAdapter(MainActivity.this, Constants.playListNames);
+                        lvMainWindowList.setAdapter(pa);
                         break;
                     case "Genres" :
                         ServiceAdapter sa = new ServiceAdapter(MainActivity.this, Constants.Genres, Constants.genreLogos);

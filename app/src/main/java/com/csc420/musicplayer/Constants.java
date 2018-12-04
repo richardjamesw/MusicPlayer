@@ -23,4 +23,6 @@ public final class Constants {
 
     public static final int[] serviceLogos = {R.drawable.spotify_logo, R.drawable.pandora_logo, R.drawable.apple_music_logo, R.drawable.local_logo};
 
+    public static final String[] playListNames = {"", "Favorite", "Workout", "Random"};
+
 }
