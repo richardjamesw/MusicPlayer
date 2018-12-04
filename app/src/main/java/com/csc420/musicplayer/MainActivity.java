@@ -77,11 +77,7 @@ public class MainActivity extends AppCompatActivity {
         lblRemainingTime = findViewById(R.id.lblRemainingTime);
 
         // media player
-        player = MediaPlayer.create(mainContext, R.raw.sample);
-        player.setLooping(true);
-        player.seekTo(0);
-        player.setVolume(0.5f, 0.5f);
-        totalTime = player.getDuration();
+        SetMediaPlayer(R.raw.sample);
 
         btnSuggested = findViewById(R.id.btnSuggested);
         btnSuggested.setOnClickListener(new View.OnClickListener() {
@@ -192,6 +188,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void SetMediaPlayer(int song) {
+        if (player != null && player.isPlaying())
+        {
+            player.stop();
+        }
+        player = MediaPlayer.create(mainContext, song);
+        player.setLooping(true);
+        player.seekTo(0);
+        player.setVolume(0.5f, 0.5f);
+        totalTime = player.getDuration();
     }
 
     @Override
@@ -360,7 +368,20 @@ public class MainActivity extends AppCompatActivity {
                     HashMap<String, String> item = (HashMap<String, String>) adapter.getItemAtPosition(position);
 
                     // play song
-                    System.out.println("test: ");
+                    if (item.get("First Line").equals("Sicko Mode"))
+                    {
+                        SetMediaPlayer(R.raw.sample);
+                        // Play
+                        player.start();
+                        btnPlay.setBackgroundResource(R.drawable.pause);
+                    }
+                    else if (item.get("First Line").equals("Mo Bamba"))
+                    {
+                        SetMediaPlayer(R.raw.mobamba);
+                        // Play
+                        player.start();
+                        btnPlay.setBackgroundResource(R.drawable.pause);
+                    }
                 }
                 catch (Exception exc)
                 {
