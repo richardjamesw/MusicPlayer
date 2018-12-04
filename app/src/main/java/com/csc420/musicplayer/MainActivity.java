@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnPlay;
     Button btnService;
     Button btnLyrics;
+    Button btnSuggested;
     SeekBar positionBar;
     //SeekBar volumeBar;
     TextView lblElapsedTime;
@@ -81,6 +82,14 @@ public class MainActivity extends AppCompatActivity {
         player.seekTo(0);
         player.setVolume(0.5f, 0.5f);
         totalTime = player.getDuration();
+
+        btnSuggested = findViewById(R.id.btnSuggested);
+        btnSuggested.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadSongs();
+            }
+        });
 
         // position bar
         positionBar = findViewById(R.id.positionBar);
@@ -372,34 +381,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (item)
                 {
                     case "Songs" :
-                        // Get local songs
-                        // Use map for song name and artist name
-                        HashMap<String, String> songsMap = getSongMap();
-                        if (songsMap == null)
-                        {
-                            // let user know there are no songs available
-                            return;
-                        }
-                        List<HashMap<String, String>> listItems = new ArrayList<>();
-                        SimpleAdapter listAdapter = new SimpleAdapter(mainContext, listItems, R.layout.song_list_layout,
-                                new String[]{"First Line", "Second Line"},
-                                new int[]{R.id.textSong, R.id.textArtist});
-
-
-                        Iterator it = songsMap.entrySet().iterator();
-                        while (it.hasNext())
-                        {
-                            HashMap<String, String> resultsMap = new HashMap<>();
-                            Map.Entry pair = (Map.Entry)it.next();
-                            resultsMap.put("First Line", pair.getKey().toString());
-                            resultsMap.put("Second Line", pair.getValue().toString());
-                            listItems.add(resultsMap);
-                        }
-                        // Update list view
-                        lvMainWindowList.setAdapter(listAdapter);
-                        // Change listener for songs
-                        lvMainWindowList.setOnItemClickListener(songListener);
-
+                        loadSongs();
                         break;
                     case "Artists" :
                         break;
@@ -414,5 +396,35 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+    }
+
+    private void loadSongs(){
+        // Get local songs
+        // Use map for song name and artist name
+        HashMap<String, String> songsMap = getSongMap();
+        if (songsMap == null)
+        {
+            // let user know there are no songs available
+            return;
+        }
+        List<HashMap<String, String>> listItems = new ArrayList<>();
+        SimpleAdapter listAdapter = new SimpleAdapter(mainContext, listItems, R.layout.song_list_layout,
+                new String[]{"First Line", "Second Line"},
+                new int[]{R.id.textSong, R.id.textArtist});
+
+
+        Iterator it = songsMap.entrySet().iterator();
+        while (it.hasNext())
+        {
+            HashMap<String, String> resultsMap = new HashMap<>();
+            Map.Entry pair = (Map.Entry)it.next();
+            resultsMap.put("First Line", pair.getKey().toString());
+            resultsMap.put("Second Line", pair.getValue().toString());
+            listItems.add(resultsMap);
+        }
+        // Update list view
+        lvMainWindowList.setAdapter(listAdapter);
+        // Change listener for songs
+        lvMainWindowList.setOnItemClickListener(songListener);
     }
 }
