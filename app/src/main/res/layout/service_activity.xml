@@ -19,13 +19,16 @@
             android:layout_height="wrap_content"
             android:text="Select Service:"
             android:textColor="@android:color/white"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"/>
 
         <ListView
             android:id="@+id/servicesList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="@color/LightGrey"
-            android:dividerHeight="3sp" />
+            android:divider="@color/colorBackground"
+            android:padding="10dp"
+            android:dividerHeight="15dp" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

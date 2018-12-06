@@ -21,6 +21,7 @@
             android:theme="@style/AppTheme.PopUpTheme"
             ></activity>
         <activity android:name=".PandoraActivity"></activity>
+        <activity android:name=".SpotifyActivity"></activity>
         <activity android:name=".LyricsActivity" android:theme="@style/AppTheme.PopUpTheme"></activity>
     </application>
 
